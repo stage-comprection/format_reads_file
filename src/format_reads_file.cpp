@@ -15,7 +15,7 @@ void formatReadsFile(string& readsFilePath){
     ofstream formattedReadsFile;
     formattedReadsFile.open(readsFilePath.c_str());
 
-    string line;
+    string line, name, sequence;
     bool start = false;
     uint count = 0;
 
@@ -25,20 +25,33 @@ void formatReadsFile(string& readsFilePath){
 
             if (!start){
 
-                formattedReadsFile << '>' + to_string(count) + '\n';
+                name = '>' + to_string(count) + '\n';
                 start = true;
 
-            }else {
+            } else {
 
-                formattedReadsFile << "\n>" + to_string(count) + '\n';
+                if (sequence.find("to_thrash") == string::npos){
+
+                    formattedReadsFile<<name<<sequence<< "\n";
+                } else {
+
+                    --count;
+                }
+
+                name = "\n>" + to_string(count) + '\n';
+                sequence = "";
 
             }
 
             ++count;
 
-        }else {
+        } else if (line.find("N") == string::npos){
 
-            formattedReadsFile << line;
+            sequence += line;
+
+        } else{
+
+            sequence = "to_thrash";
         }
     }
 
@@ -55,8 +68,8 @@ int main(int argc, char *argv[]){
         return -1;
     }
 
-    string fileName = argv[1];
-    string readsFilePath = "/home/rferon/project/data/reads/" + fileName;
+    string filePath = argv[1];
+    string readsFilePath = filePath;
     formatReadsFile(readsFilePath);
     return 0;
 }
