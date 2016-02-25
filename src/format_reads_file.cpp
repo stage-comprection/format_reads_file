@@ -32,7 +32,7 @@ void formatReadsFile(string& readsFilePath){
 
                 if (sequence.find("to_thrash") == string::npos){
 
-                    formattedReadsFile<<name<<sequence<< "\n";
+                    formattedReadsFile<<name<<sequence;
                 } else {
 
                     --count;
