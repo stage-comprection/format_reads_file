@@ -16,33 +16,26 @@ void formatReadsFile(string& readsFilePath){
     formattedReadsFile.open(readsFilePath.c_str());
 
     string line, name, sequence;
-    bool start = false;
     uint count = 0;
 
     while(getline(readsFile, line)){
 
         if(line[0] == '>'){
 
-            if (!start){
-
-                name = '>' + to_string(count) + '\n';
-                start = true;
-
-            } else {
+            if (sequence.size() > 0){
 
                 if (sequence.find("to_thrash") == string::npos){
 
-                    formattedReadsFile<<name<<sequence;
+                    formattedReadsFile<<">"<<name<<"\n"<<sequence<<"\n";
 
                 } else {
 
                     --count;
                 }
-
-                name = "\n>" + to_string(count) + '\n';
-                sequence = "";
-
             }
+
+            name = to_string(count);
+            sequence = "";
 
             ++count;
 
