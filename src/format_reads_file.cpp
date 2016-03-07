@@ -22,8 +22,6 @@ void formatReadsFile(string& readsFilePath, bool keepN){
 
         if(line[0] == '>'){
 
-            cout<<line<<endl;
-
             if (sequence.size() > 0){
 
                 if (sequence.find("to_thrash") == string::npos){
@@ -60,6 +58,18 @@ void formatReadsFile(string& readsFilePath, bool keepN){
         }
     }
 
+    if (sequence.size() > 0){
+
+        if (sequence.find("to_thrash") == string::npos){
+
+            formattedReadsFile<<">"<<name<<"\n"<<sequence<<"\n";
+
+        } else {
+
+            --count;
+        }
+    }
+
     readsFile.close();
     formattedReadsFile.close();
 }
@@ -77,6 +87,7 @@ int main(int argc, char *argv[]){
     string keepN_s = argv[2];
     bool keepN = true;
     if (keepN_s != "T") keepN = false;
+    cout<<keepN_s<<endl;
     string readsFilePath = filePath;
     formatReadsFile(readsFilePath, keepN);
     return 0;
