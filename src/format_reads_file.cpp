@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void formatReadsFile(string& readsFilePath){
+void formatReadsFile(string& readsFilePath, bool keepN){
 
     ifstream readsFile;
     string originalreadsFile = readsFilePath + ".backup";
@@ -21,6 +21,8 @@ void formatReadsFile(string& readsFilePath){
     while(getline(readsFile, line)){
 
         if(line[0] == '>'){
+
+            cout<<line<<endl;
 
             if (sequence.size() > 0){
 
@@ -43,9 +45,18 @@ void formatReadsFile(string& readsFilePath){
 
             sequence += line;
 
-        } else{
+        } else {
 
-            sequence = "to_thrash";
+            if (keepN){
+
+                sequence += line;
+
+            } else {
+
+                sequence = "to_thrash";
+            }
+
+
         }
     }
 
@@ -57,14 +68,17 @@ void formatReadsFile(string& readsFilePath){
 
 int main(int argc, char *argv[]){
 
-    if (argc < 2){
+    if (argc < 3){
         cout<<"\nError : not enough arguments, exiting...\n";
         return -1;
     }
 
     string filePath = argv[1];
+    string keepN_s = argv[2];
+    bool keepN = true;
+    if (keepN_s != 'T') keepN = false;
     string readsFilePath = filePath;
-    formatReadsFile(readsFilePath);
+    formatReadsFile(readsFilePath, keepN);
     return 0;
 }
 
