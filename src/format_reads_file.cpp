@@ -76,7 +76,7 @@ int main(int argc, char *argv[]){
     string filePath = argv[1];
     string keepN_s = argv[2];
     bool keepN = true;
-    if (keepN_s != 'T') keepN = false;
+    if (keepN_s != "T") keepN = false;
     string readsFilePath = filePath;
     formatReadsFile(readsFilePath, keepN);
     return 0;
