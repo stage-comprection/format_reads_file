@@ -87,7 +87,6 @@ int main(int argc, char *argv[]){
     string keepN_s = argv[2];
     bool keepN = true;
     if (keepN_s != "T") keepN = false;
-    cout<<keepN_s<<endl;
     string readsFilePath = filePath;
     formatReadsFile(readsFilePath, keepN);
     return 0;
